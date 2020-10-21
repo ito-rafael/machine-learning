@@ -2,3 +2,5 @@ Paper of the Day
 
 2020-10-20: AlexNet
   - ImageNet Classification with Deep Convolutional Neural Networks [University of Toronto] (Krizhevsky et al., 2012) 
+2020-10-21: VGG
+  - Very Deep Convolutional Networks for Large-Scale Image Recognition [University of Oxford] (Simonyan & Zisserman, 2014)
