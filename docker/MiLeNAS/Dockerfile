@@ -2,6 +2,7 @@
 # author: Rafael Ito
 # version:
 #   - v0.1: first release
+#   - v0.2: copied CIFAR-10 dataset
 
 #FROM conda/miniconda3
 FROM itorafael/conda-dev
@@ -29,6 +30,9 @@ RUN echo 'conda activate '$CONDA_ENV >> ~/.bashrc
 
 # pip packages
 RUN pip install nvidia-ml-py3
+
+# copy CIFAR-10 data
+COPY data/cifar-10-batches-py data/cifar-10-batches-py
 
 # prevent container from dying
 ENTRYPOINT ["tail", "-f", "/dev/null"]

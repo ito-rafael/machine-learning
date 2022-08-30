@@ -1,0 +1,5 @@
+# wandb login
+sed -i -e 's/\(entity=\).*/\1"ito-rafael"/' search_algorithm/train_milenas.py
+
+# start training
+CUDA_VISIBLE_DEVICES=0 ./search_algorithm/run_milenas.sh "0" 200003 1 50 "saved_models" 0.025 0.0003 2021 8
