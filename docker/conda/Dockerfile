@@ -2,8 +2,9 @@
 # author: Rafael Ito
 # version:
 #   - v0.1: first release
+#   - v0.2: pin upstream version + update PATH env var
 
-FROM itorafael/ml-generic
+FROM itorafael/ml-generic:v0.1
 
 USER root
 # add Debian non-free packages
@@ -20,3 +21,5 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -
 RUN bash ~/miniconda.sh -b -p $HOME/miniconda
 RUN rm -rf ~/miniconda/miniconda.sh
 RUN ~/miniconda/bin/conda init bash
+ENV PATH=$PATH:/root/miniconda/bin
+RUN conda update -n base -c defaults conda
