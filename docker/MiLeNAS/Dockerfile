@@ -3,32 +3,32 @@
 # version:
 #   - v0.1: first release
 #   - v0.2: copied CIFAR-10 dataset
+#   - v0.3: pin upstream version + update vars
 
 #FROM conda/miniconda3
-FROM itorafael/conda-dev
+FROM itorafael/conda-dev:v0.2
 
-ARG GIT_REPO='https://github.com/chaoyanghe/MiLeNAS.git'
-ARG CONDA_ENV='milenas'
+ARG GIT_USER="chaoyanghe"
+ARG GIT_REPO="MiLeNAS"
+ARG CONDA_ENV="milenas"
 
 # update system
 USER root
 RUN apt update && apt upgrade -y
 
 # clone repo
-RUN git clone https://github.com/chaoyanghe/MiLeNAS.git
-WORKDIR MiLeNAS
+RUN git clone "https://github.com/$GIT_USER/$GIT_REPO.git"
+WORKDIR $GIT_REPO
 
 # create conda env
-ENV PATH=$PATH:/root/miniconda/bin
-RUN conda update -n base -c defaults conda
 RUN conda create --name $CONDA_ENV python=3
 RUN conda init bash
 SHELL ["conda", "run", "-n", "milenas", "/bin/bash", "-c"]
-RUN conda install -n milenas pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
-RUN pip install -r requirements.txt
+RUN conda install -n $CONDA_ENV pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
 RUN echo 'conda activate '$CONDA_ENV >> ~/.bashrc
 
-# pip packages
+# additional packages
+RUN pip install -r requirements.txt
 RUN pip install nvidia-ml-py3
 
 # copy CIFAR-10 data
