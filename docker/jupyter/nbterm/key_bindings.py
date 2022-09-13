@@ -43,6 +43,7 @@ class KeyBindings:
             self.quitting = False
             self.show_help()
 
+        @self.key_bindings.add("c-w", filter=not_help_mode)
         @self.key_bindings.add("c-q", filter=not_help_mode)
         async def c_q(event):
             await self.exit()
