@@ -40,17 +40,6 @@ RUN pip install \
     scikit-learn \
     thop
 
-# Jupyter Notebook Extensions
-# Widgets
-# Matplotlib
-# Vim bindings
-# Vim copy to clipboard
-RUN pip install \
-    ipywidgets \
-    ipympl \
-    jupyterlab-vim \
-    jupyterlab-vimrc
-
 # conda env inside Jupyter
 RUN conda install nb_conda_kernels
 
@@ -60,5 +49,18 @@ WORKDIR nbterm
 COPY nbterm/key_bindings.py nbterm/key_bindings.py
 RUN pip install ipykernel
 RUN pip install .
+
+# Jupyter Notebook Extensions
+# Widgets
+# Matplotlib
+# Vim bindings
+# Vim copy to clipboard
+# PEP 8 Python support
+RUN pip install \
+    ipywidgets \
+    ipympl \
+    jupyterlab-vim \
+    jupyterlab-vimrc \
+    autopep8
 
 WORKDIR /home/jovyan
