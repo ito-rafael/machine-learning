@@ -58,6 +58,7 @@ RUN conda install nb_conda_kernels
 RUN git clone https://github.com/davidbrochart/nbterm.git
 WORKDIR nbterm
 COPY nbterm/key_bindings.py nbterm/key_bindings.py
+RUN pip install ipykernel
 RUN pip install .
 
 WORKDIR /home/jovyan
