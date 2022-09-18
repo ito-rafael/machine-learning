@@ -2,6 +2,7 @@
 # author: Rafael Ito
 # version:
 #   - v0.1: first release
+#   - v0.2: add jupyter-autopep8
 
 # get parent image:
 # https://github.com/jupyter/docker-stacks
