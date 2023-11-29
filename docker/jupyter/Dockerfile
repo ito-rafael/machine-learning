@@ -3,6 +3,7 @@
 # version:
 #   - v0.1: first release
 #   - v0.2: add jupyter-autopep8
+#   - v0.3: add PyDrive2 & Google Drive API
 
 # get parent image:
 # https://github.com/jupyter/docker-stacks
@@ -12,12 +13,13 @@ FROM jupyter/minimal-notebook
 USER root
 RUN apt-get update && apt-get upgrade -y
 
-# install packages
+# install packages with package manager
 RUN apt install -y neovim
 
-# Switch back to jovyan to avoid accidental container runs as root
+# switch back to jovyan user to avoid running container as root accidentally
 USER ${NB_UID}
 
+# install Python packages with pip
 # PyTorch
 RUN pip install \
     torch \
@@ -41,22 +43,19 @@ RUN pip install \
     scikit-learn \
     thop
 
-# conda env inside Jupyter
-RUN conda install nb_conda_kernels
-
-# Jupyter on terminal
-RUN git clone https://github.com/davidbrochart/nbterm.git
-WORKDIR nbterm
-COPY nbterm/key_bindings.py nbterm/key_bindings.py
-RUN pip install ipykernel
-RUN pip install .
+# Google Drive
+RUN pip install \
+    google-api-python-client \
+    google-auth-httplib2 \
+    google-auth-oauthlib \
+    PyDrive2
 
 # Jupyter Notebook Extensions
-# Widgets
-# Matplotlib
-# Vim bindings
-# Vim copy to clipboard
-# PEP 8 Python support
+#   - Widgets
+#   - Matplotlib
+#   - Vim bindings
+#   - Vim copy to clipboard
+#   - PEP 8 Python support
 RUN pip install \
     ipywidgets \
     ipympl \
