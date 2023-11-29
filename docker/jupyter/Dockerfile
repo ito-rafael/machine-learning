@@ -4,6 +4,7 @@
 #   - v0.1: first release
 #   - v0.2: add jupyter-autopep8
 #   - v0.3: add PyDrive2 & Google Drive API
+#   - v0.4: configure vim keybindings: hjkl --> jkl;
 
 # get parent image:
 # https://github.com/jupyter/docker-stacks
@@ -14,7 +15,9 @@ USER root
 RUN apt-get update && apt-get upgrade -y
 
 # install packages with package manager
-RUN apt install -y neovim
+RUN apt install -y \
+  neovim \
+  jq
 
 # switch back to jovyan user to avoid running container as root accidentally
 USER ${NB_UID}
@@ -62,5 +65,13 @@ RUN pip install \
     jupyterlab-vim \
     jupyterlab-vimrc \
     autopep8
+
+# configure shortcuts in JupyterLab (hjkl --> jkl;)
+WORKDIR /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/shortcuts-extension
+RUN tmpfile=$(mktemp)
+RUN cp shortcuts.jupyterlab-settings "$tmpfile"
+RUN jq '(.shortcuts[] | select(.command == "notebook:move-cursor-up") | select(.keys == ["K"])).keys |= ["L"]' "$tmpfile" | \
+    jq '(.shortcuts[] | select(.command == "notebook:move-cursor-down") | select(.keys == ["J"])).keys |= ["K"]' >shortcuts.jupyterlab-settings
+RUN rm -f -- "$tmpfile"
 
 WORKDIR /home/jovyan
