@@ -74,4 +74,7 @@ RUN jq '(.shortcuts[] | select(.command == "notebook:move-cursor-up") | select(.
     jq '(.shortcuts[] | select(.command == "notebook:move-cursor-down") | select(.keys == ["J"])).keys |= ["K"]' >shortcuts.jupyterlab-settings
 RUN rm -f -- "$tmpfile"
 
+# configure vimrc in JupyterLab (hjkl --> jkl;)
+COPY vimrc.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/jupyterlab-vimrc/vimrc.jupyterlab-settings
+
 WORKDIR /home/jovyan
