@@ -99,7 +99,7 @@ COPY --chown=jovyan settings/vim-vimrc      /home/jovyan/.vimrc
 #COPY --chown=jovyan settings/nvim-plugins.lua  /home/jovyan/.config/nvim/lua/plugins.lua
 
 # enable extensions
-COPY --chown=jovyan extensions/extensionmanager-extension/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
+COPY --chown=jovyan extensions/\@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
 
 # configure Colemak-DH in JupyterLab with jupyterlab-vim (hjkl --> neio)
 COPY --chown=jovyan extensions/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings
