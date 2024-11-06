@@ -7,6 +7,7 @@
 #   - v0.4: configure vim keybindings: "hjkl" --> "jkl;" (qwerty shifted right 1u)
 #   - v0.5:
 #     - replace Neovim with standard Vim
+#     - copy dotfiles for Bash and Vim
 
 # get parent image:
 # https://github.com/jupyter/docker-stacks
@@ -79,5 +80,14 @@ RUN rm -f -- "$tmpfile"
 
 # configure vimrc in JupyterLab (hjkl --> jkl;)
 COPY vimrc.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/jupyterlab-vimrc/vimrc.jupyterlab-settings
+
+# adjust some settings
+COPY --chown=jovyan settings/shell-inputrc  /home/jovyan/.inputrc
+COPY --chown=jovyan settings/shell-bashrc   /home/jovyan/.bashrc
+COPY --chown=jovyan settings/vim-vimrc      /home/jovyan/.vimrc
+# Neovim
+#COPY --chown=jovyan settings/nvim-vimrc.vim    /home/jovyan/.config/nvim/vimrc.vim
+#COPY --chown=jovyan settings/nvim-init.lua     /home/jovyan/.config/nvim/init.lua
+#COPY --chown=jovyan settings/nvim-plugins.lua  /home/jovyan/.config/nvim/lua/plugins.lua
 
 WORKDIR /home/jovyan
