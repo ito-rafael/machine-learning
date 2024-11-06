@@ -45,6 +45,9 @@
     "keys": [
         "I"
     ],
+    "selector": ".jp-Notebook:focus"
+},
+#+end_src
 * Insert Cell
 ** Below
 #+begin_src js
@@ -56,6 +59,13 @@
     "selector": ".jp-Notebook:focus"
 },
 #+end_src
+** Above
+#+begin_src js
+{
+    "command": "notebook:insert-cell-above",
+    "keys": [
+        "Shift H"
+    ],
     "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
 },
 #+end_src
