@@ -95,4 +95,7 @@ COPY --chown=jovyan settings/vim-vimrc      /home/jovyan/.vimrc
 #COPY --chown=jovyan settings/nvim-init.lua     /home/jovyan/.config/nvim/init.lua
 #COPY --chown=jovyan settings/nvim-plugins.lua  /home/jovyan/.config/nvim/lua/plugins.lua
 
+# enable extensions
+COPY --chown=jovyan extensions/extensionmanager-extension/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
+
 WORKDIR /home/jovyan
