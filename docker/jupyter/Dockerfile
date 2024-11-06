@@ -77,9 +77,14 @@ RUN cp shortcuts.jupyterlab-settings "$tmpfile"
 RUN jq '(.shortcuts[] | select(.command == "notebook:move-cursor-up") | select(.keys == ["K"])).keys |= ["L"]' "$tmpfile" | \
     jq '(.shortcuts[] | select(.command == "notebook:move-cursor-down") | select(.keys == ["J"])).keys |= ["K"]' >shortcuts.jupyterlab-settings
 RUN rm -f -- "$tmpfile"
+# with npm:
+#   - apputils:          UI utils (disable announcements notification)
+RUN npm install @jupyterlab/apputils
 
 # configure vimrc in JupyterLab (hjkl --> jkl;)
 COPY vimrc.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/jupyterlab-vimrc/vimrc.jupyterlab-settings
+# disable Jupyter announcements notification
+RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # adjust some settings
 COPY --chown=jovyan settings/shell-inputrc  /home/jovyan/.inputrc
