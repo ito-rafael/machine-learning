@@ -9,6 +9,7 @@
 - [[#kernel-interruption-disable-i-i][Kernel interruption disable (i, i)]]
 - [[#navigation][Navigation]]
 - [[#insert-cell][Insert Cell]]
+- [[#change-cell-to-code][Change Cell to Code]]
 
 * Init :noexport:
 #+begin_src js
@@ -67,6 +68,16 @@
         "Shift H"
     ],
     "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
+},
+#+end_src
+* Change Cell to Code
+#+begin_src js
+{
+    "command": "notebook:change-cell-to-code",
+    "keys": [
+        "C"
+    ],
+    "selector": ".jp-Notebook:focus"
 },
 #+end_src
 * End :noexport:
