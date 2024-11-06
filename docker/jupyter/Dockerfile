@@ -10,6 +10,7 @@
 #     - copy dotfiles for Bash and Vim
 #     - enable Jupyter extensions by default
 #     - disable Jupyter announcements notification
+#     - configure vim keybindings in @axlair/jupyterlab_vim: hjkl --> neio (Colemak-DH)
 
 # get parent image:
 # https://github.com/jupyter/docker-stacks
@@ -99,5 +100,8 @@ COPY --chown=jovyan settings/vim-vimrc      /home/jovyan/.vimrc
 
 # enable extensions
 COPY --chown=jovyan extensions/extensionmanager-extension/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
+
+# configure Colemak-DH in JupyterLab with jupyterlab-vim (hjkl --> neio)
+COPY --chown=jovyan extensions/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings
 
 WORKDIR /home/jovyan

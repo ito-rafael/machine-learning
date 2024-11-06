@@ -1,0 +1,103 @@
+{
+    "enabled": true,
+    "extraKeybindings": [
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "n",
+            "keys": "h"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "e",
+            "keys": "j"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "i",
+            "keys": "k"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "o",
+            "keys": "l"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "h",
+            "keys": "o"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "k",
+            "keys": "n"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "l",
+            "keys": "e"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "s",
+            "keys": "i"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "n",
+            "keys": "h"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "e",
+            "keys": "j"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "i",
+            "keys": "k"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "o",
+            "keys": "l"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "s",
+            "keys": "i"
+        },
+        {
+            "context": "normal",
+            "mapfn": "map",
+            "enabled": true,
+            "command": "Y",
+            "keys": "y$"
+        },
+    ]
+}
