@@ -17,7 +17,7 @@
             "selector": ".jp-Notebook:focus"
         },
         {
-            "command": "notebook:move-cell-up",
+            "command": "notebook:move-cursor-up",
             "keys": [
                 "I"
             ],
