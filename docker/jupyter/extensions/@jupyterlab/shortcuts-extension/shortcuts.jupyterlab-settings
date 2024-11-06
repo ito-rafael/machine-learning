@@ -9,5 +9,12 @@
             "selector": "[data-jp-kernel-user]:focus",
             "disabled": true
         },
+        {
+            "command": "notebook:move-cell-up",
+            "keys": [
+                "I"
+            ],
+            "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
+        },
     ]
 }

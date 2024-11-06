@@ -7,6 +7,7 @@
 
 * Table of contents :toc_1:
 - [[#kernel-interruption-disable-i-i][Kernel interruption disable (i, i)]]
+- [[#navigation][Navigation]]
 
 * Init :noexport:
 #+begin_src js
@@ -23,6 +24,17 @@
     ],
     "selector": "[data-jp-kernel-user]:focus",
     "disabled": true
+},
+#+end_src
+* Navigation
+** Cell Up
+#+begin_src js
+{
+    "command": "notebook:move-cell-up",
+    "keys": [
+        "I"
+    ],
+    "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
 },
 #+end_src
 * End :noexport:
