@@ -27,6 +27,16 @@
 },
 #+end_src
 * Navigation
+** Cell Down
+#+begin_src js
+{
+    "command": "notebook:move-cursor-down",
+    "keys": [
+        "E"
+    ],
+    "selector": ".jp-Notebook:focus"
+},
+#+end_src
 ** Cell Up
 #+begin_src js
 {

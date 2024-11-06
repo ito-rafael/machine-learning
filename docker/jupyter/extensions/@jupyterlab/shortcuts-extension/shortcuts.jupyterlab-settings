@@ -10,6 +10,13 @@
             "disabled": true
         },
         {
+            "command": "notebook:move-cursor-down",
+            "keys": [
+                "E"
+            ],
+            "selector": ".jp-Notebook:focus"
+        },
+        {
             "command": "notebook:move-cell-up",
             "keys": [
                 "I"
