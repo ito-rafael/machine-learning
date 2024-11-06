@@ -1,0 +1,32 @@
+#+TITLE: JupyterLab Keyboard Shortcuts
+#+AUTHOR: Rafael Ito
+#+PROPERTY: header-args :padline no :tangle shortcuts.jupyterlab-settings
+#+DESCRIPTION: keybindings optimized for Colemak-DH keyboard layout
+#+STARTUP: showeverything
+#+auto_tangle: t
+
+* Table of contents :toc_1:
+- [[#kernel-interruption-disable-i-i][Kernel interruption disable (i, i)]]
+
+* Init :noexport:
+#+begin_src js
+{
+    "shortcuts": [
+#+end_src
+* Kernel interruption disable (i, i)
+#+begin_src js
+{
+    "command": "kernelmenu:interrupt",
+    "keys": [
+        "I",
+        "I"
+    ],
+    "selector": "[data-jp-kernel-user]:focus",
+    "disabled": true
+},
+#+end_src
+* End :noexport:
+#+begin_src js
+    ]
+}
+#+end_src

@@ -1,13 +1,13 @@
 {
-  "shortcuts": [
-    {
-      "command": "kernelmenu:interrupt",
-      "keys": [
-        "I",
-        "I"
-      ],
-      "selector": "[data-jp-kernel-user]:focus",
-      "disabled": true
-    }
-  ]
+    "shortcuts": [
+        {
+            "command": "kernelmenu:interrupt",
+            "keys": [
+                "I",
+                "I"
+            ],
+            "selector": "[data-jp-kernel-user]:focus",
+            "disabled": true
+        },
+    ]
 }
