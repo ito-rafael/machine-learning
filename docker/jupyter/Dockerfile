@@ -4,7 +4,9 @@
 #   - v0.1: first release
 #   - v0.2: add jupyter-autopep8
 #   - v0.3: add PyDrive2 & Google Drive API
-#   - v0.4: configure vim keybindings: hjkl --> jkl;
+#   - v0.4: configure vim keybindings: "hjkl" --> "jkl;" (qwerty shifted right 1u)
+#   - v0.5:
+#     - replace Neovim with standard Vim
 
 # get parent image:
 # https://github.com/jupyter/docker-stacks
@@ -16,8 +18,7 @@ RUN apt-get update && apt-get upgrade -y
 
 # install packages with package manager
 RUN apt install -y \
-  neovim \
-  jq
+  vim
 
 # switch back to jovyan user to avoid running container as root accidentally
 USER ${NB_UID}
@@ -54,11 +55,13 @@ RUN pip install \
     PyDrive2
 
 # Jupyter Notebook Extensions
-#   - Widgets
-#   - Matplotlib
-#   - Vim bindings
-#   - Vim copy to clipboard
-#   - PEP 8 Python support
+
+# with pip:
+#   - ipywidgets:        Widgets
+#   - ipympl:            Matplotlib
+#   - jupyterlab-vim:    Vim bindings
+#   - jupyterlab-vimrc:  Vim copy to clipboard
+#   - autopep8:          PEP 8 Python support
 RUN pip install \
     ipywidgets \
     ipympl \
