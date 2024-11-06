@@ -8,6 +8,8 @@
 #   - v0.5:
 #     - replace Neovim with standard Vim
 #     - copy dotfiles for Bash and Vim
+#     - enable Jupyter extensions by default
+#     - disable Jupyter announcements notification
 
 # get parent image:
 # https://github.com/jupyter/docker-stacks
