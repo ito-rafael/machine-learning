@@ -12,6 +12,7 @@
 - [[#change-cell-to-code][Change Cell to Code]]
 - [[#move-cell][Move Cell]]
 - [[#extend-selection][Extend Selection]]
+- [[#enter-insert-mode][Enter Insert Mode]]
 
 * Init :noexport:
 #+begin_src js
@@ -120,6 +121,16 @@
     "command": "notebook:extend-marked-cells-above",
     "keys": [
         "Shift I"
+    ],
+    "selector": ".jp-Notebook:focus"
+},
+#+end_src
+* Enter Insert Mode
+#+begin_src js
+{
+    "command": "notebook:enter-edit-mode",
+    "keys": [
+        "S"
     ],
     "selector": ".jp-Notebook:focus"
 },
