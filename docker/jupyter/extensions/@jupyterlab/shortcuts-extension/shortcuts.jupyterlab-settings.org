@@ -11,6 +11,7 @@
 - [[#insert-cell][Insert Cell]]
 - [[#change-cell-to-code][Change Cell to Code]]
 - [[#move-cell][Move Cell]]
+- [[#extend-selection][Extend Selection]]
 
 * Init :noexport:
 #+begin_src js
@@ -100,6 +101,17 @@
         "Ctrl I"
     ],
     "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
+},
+#+end_src
+* Extend Selection
+** Below
+#+begin_src js
+{
+    "command": "notebook:extend-marked-cells-below",
+    "keys": [
+        "Shift E"
+    ],
+    "selector": ".jp-Notebook:focus"
 },
 #+end_src
 * End :noexport:
