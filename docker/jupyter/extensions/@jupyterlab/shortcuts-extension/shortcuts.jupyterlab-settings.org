@@ -10,6 +10,7 @@
 - [[#navigation][Navigation]]
 - [[#insert-cell][Insert Cell]]
 - [[#change-cell-to-code][Change Cell to Code]]
+- [[#move-cell][Move Cell]]
 
 * Init :noexport:
 #+begin_src js
@@ -92,6 +93,15 @@
 },
 #+end_src
 ** Up
+#+begin_src js
+{
+    "command": "notebook:move-cell-up",
+    "keys": [
+        "Ctrl I"
+    ],
+    "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
+},
+#+end_src
 * End :noexport:
 #+begin_src js
     ]
