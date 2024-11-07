@@ -28,7 +28,56 @@
             "keys": [
                 "H"
             ],
+            "selector": ".jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:insert-cell-above",
+            "keys": [
+                "Shift H"
+            ],
             "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:change-cell-to-code",
+            "keys": [
+                "C"
+            ],
+            "selector": ".jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:move-cell-down",
+            "keys": [
+                "Ctrl E"
+            ],
+            "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:move-cell-up",
+            "keys": [
+                "Ctrl I"
+            ],
+            "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:extend-marked-cells-below",
+            "keys": [
+                "Shift E"
+            ],
+            "selector": ".jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:extend-marked-cells-above",
+            "keys": [
+                "Shift I"
+            ],
+            "selector": ".jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:enter-edit-mode",
+            "keys": [
+                "S"
+            ],
+            "selector": ".jp-Notebook:focus"
         },
     ]
 }
