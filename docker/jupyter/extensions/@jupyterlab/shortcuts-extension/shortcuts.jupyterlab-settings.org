@@ -114,6 +114,16 @@
     "selector": ".jp-Notebook:focus"
 },
 #+end_src
+** Above
+#+begin_src js
+{
+    "command": "notebook:extend-marked-cells-above",
+    "keys": [
+        "Shift I"
+    ],
+    "selector": ".jp-Notebook:focus"
+},
+#+end_src
 * End :noexport:
 #+begin_src js
     ]
