@@ -9,6 +9,7 @@
 #     - replace Neovim with standard Vim
 #     - copy dotfiles for Bash and Vim
 #     - set Jupyter theme to dark
+#     - uninstall jupyterlab-vimrc
 #     - enable Jupyter extensions by default
 #     - disable Jupyter announcements notification
 #     - configure vim keybindings in @axlair/jupyterlab_vim: hjkl --> neio (Colemak-DH)

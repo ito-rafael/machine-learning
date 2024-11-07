@@ -40,6 +40,13 @@
             "context": "normal",
             "mapfn": "noremap",
             "enabled": true,
+            "command": "H",
+            "keys": "O"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
             "command": "k",
             "keys": "n"
         },
