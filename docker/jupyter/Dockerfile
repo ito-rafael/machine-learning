@@ -14,7 +14,7 @@
 #       - enable Jupyter extensions by default
 #       - configure vim bindings (Colemak-DH) inside cells in "Notebook Vim" [@axlair/jupyterlab_vim]
 #       - set Jupyter theme to dark
-#       - enable line number in all cell types
+#       - enable line number in console & all cell types
 
 # get parent image:
 # https://github.com/jupyter/docker-stacks
@@ -77,16 +77,6 @@ RUN pip install \
     jupyterlab-vimrc \
     autopep8
 
-# configure shortcuts in JupyterLab (hjkl --> jkl;)
-WORKDIR /home/jovyan/.jupyter/lab/user-settings/@jupyterlab/shortcuts-extension
-RUN tmpfile=$(mktemp)
-RUN cp shortcuts.jupyterlab-settings "$tmpfile"
-RUN jq '(.shortcuts[] | select(.command == "notebook:move-cursor-up") | select(.keys == ["K"])).keys |= ["L"]' "$tmpfile" | \
-    jq '(.shortcuts[] | select(.command == "notebook:move-cursor-down") | select(.keys == ["J"])).keys |= ["K"]' >shortcuts.jupyterlab-settings
-RUN rm -f -- "$tmpfile"
-
-# configure vimrc in JupyterLab (hjkl --> jkl;)
-COPY vimrc.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/jupyterlab-vimrc/vimrc.jupyterlab-settings
 
 # adjust some settings
 COPY --chown=jovyan settings/shell-inputrc  /home/jovyan/.inputrc
@@ -112,6 +102,9 @@ COPY --chown=jovyan extensions/\@jupyterlab/extensionmanager-extension/plugin.ju
 
 # configure Colemak-DH in JupyterLab with jupyterlab-vim (hjkl --> neio)
 COPY --chown=jovyan extensions/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings
+
+# enable line numbers in console
+COPY --chown=jovyan extensions/\@jupyterlab/console-extension/tracker.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/console-extension/tracker.jupyterlab-settings
 
 # enable line numbers in notebook
 COPY --chown=jovyan extensions/\@jupyterlab/notebook-extension/tracker.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/notebook-extension/tracker.jupyterlab-settings
