@@ -1,0 +1,23 @@
+{
+    // Code Console
+    // @jupyterlab/console-extension:tracker
+    // Code Console settings.
+    // *************************************
+
+    // Interaction mode
+    // Whether the console interaction mimics the notebook
+    // or terminal keyboard shortcuts.
+    "interactionMode": "notebook",
+
+    // Prompt Cell Configuration
+    // The configuration for all prompt cells; it will override the CodeMirror default configuration.
+    "promptCellConfig": {
+        "codeFolding": false,
+        "lineNumbers": true
+    },
+
+    // Show All Kernel Activity
+    // Whether the console defaults to showing all
+    // kernel activity or just kernel activity originating from itself.
+    "showAllKernelActivity": false
+}
