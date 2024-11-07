@@ -6,8 +6,22 @@
                 "I",
                 "I"
             ],
-            "selector": "[data-jp-kernel-user]:focus",
+            "selector": "[data-jp-kernel-user]:not(.jp-mod-readWrite) :focus:not(:read-write)",
             "disabled": true
+        },
+        {
+            "command": "notebook:enter-edit-mode",
+            "keys": [
+                "S"
+            ],
+            "selector": ".jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:change-cell-to-code",
+            "keys": [
+                "C"
+            ],
+            "selector": ".jp-Notebook:focus"
         },
         {
             "command": "notebook:move-cursor-down",
@@ -20,27 +34,6 @@
             "command": "notebook:move-cursor-up",
             "keys": [
                 "I"
-            ],
-            "selector": ".jp-Notebook:focus"
-        },
-        {
-            "command": "notebook:insert-cell-below",
-            "keys": [
-                "H"
-            ],
-            "selector": ".jp-Notebook:focus"
-        },
-        {
-            "command": "notebook:insert-cell-above",
-            "keys": [
-                "Shift H"
-            ],
-            "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
-        },
-        {
-            "command": "notebook:change-cell-to-code",
-            "keys": [
-                "C"
             ],
             "selector": ".jp-Notebook:focus"
         },
@@ -73,11 +66,18 @@
             "selector": ".jp-Notebook:focus"
         },
         {
-            "command": "notebook:enter-edit-mode",
+            "command": "notebook:insert-cell-below",
             "keys": [
-                "S"
+                "H"
             ],
             "selector": ".jp-Notebook:focus"
+        },
+        {
+            "command": "notebook:insert-cell-above",
+            "keys": [
+                "Shift H"
+            ],
+            "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
         },
     ]
 }
