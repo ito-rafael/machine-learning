@@ -12,6 +12,7 @@
 #       - uninstall jupyterlab-vimrc
 #       - disable Jupyter announcements notification
 #       - enable Jupyter extensions by default
+#       - configure vim bindings (Colemak-DH) for notebook in "Keyboard Shortcuts"
 #       - configure vim bindings (Colemak-DH) inside cells in "Notebook Vim" [@axlair/jupyterlab_vim]
 #       - set Jupyter theme to dark
 #       - install button to toggle theme
@@ -104,6 +105,9 @@ COPY --chown=jovyan extensions/\@jupyterlab/extensionmanager-extension/plugin.ju
 
 # configure Colemak-DH in JupyterLab with jupyterlab-vim (hjkl --> neio)
 COPY --chown=jovyan extensions/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings
+
+# set keyboard shortcuts for Colemak-DH
+COPY --chown=jovyan extensions/\@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings
 
 # enable line numbers in console
 COPY --chown=jovyan extensions/\@jupyterlab/console-extension/tracker.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/console-extension/tracker.jupyterlab-settings
