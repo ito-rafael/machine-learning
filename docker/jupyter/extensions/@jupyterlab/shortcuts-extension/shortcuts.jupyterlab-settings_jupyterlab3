@@ -1,41 +1,14 @@
-#+TITLE: JupyterLab 4 Keyboard Shortcuts
-#+AUTHOR: Rafael Ito
-#+PROPERTY: header-args :padline no :tangle shortcuts.jupyterlab-settings
-#+DESCRIPTION: keybindings optimized for Colemak-DH keyboard layout
-#+STARTUP: showeverything
-#+auto_tangle: t
-
-* Table of contents :toc_2:
-- [[#kernel-interruption-disable-i-i][Kernel interruption disable (i, i)]]
-- [[#enter-insert-mode][Enter Insert Mode]]
-- [[#change-cell-to-code][Change Cell to Code]]
-- [[#navigation][Navigation]]
-  - [[#focus][Focus]]
-  - [[#move-cell][Move Cell]]
-  - [[#extend-selection][Extend Selection]]
-- [[#insert-new-cell][Insert New Cell]]
-- [[#toggle-theme][Toggle Theme]]
-
-* Init :noexport:
-#+begin_src js
 {
     "shortcuts": [
-#+end_src
-* Kernel interruption disable (i, i)
-For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
-#+begin_src js
 {
     "command": "kernelmenu:interrupt",
     "keys": [
         "I",
         "I"
     ],
-    "selector": "[data-jp-kernel-user]:not(.jp-mod-readWrite) :focus:not(:read-write)",
+    "selector": "[data-jp-kernel-user]:focus",
     "disabled": true
 },
-#+end_src
-* Enter Insert Mode
-#+begin_src js
 {
     "command": "notebook:enter-edit-mode",
     "keys": [
@@ -43,9 +16,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-Notebook:focus"
 },
-#+end_src
-* Change Cell to Code
-#+begin_src js
 {
     "command": "notebook:change-cell-to-code",
     "keys": [
@@ -53,11 +23,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-Notebook:focus"
 },
-#+end_src
-* Navigation
-** Focus
-*** Cell Down
-#+begin_src js
 {
     "command": "notebook:move-cursor-down",
     "keys": [
@@ -65,9 +30,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-Notebook:focus"
 },
-#+end_src
-*** Cell Up
-#+begin_src js
 {
     "command": "notebook:move-cursor-up",
     "keys": [
@@ -75,10 +37,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-Notebook:focus"
 },
-#+end_src
-** Move Cell
-*** Down
-#+begin_src js
 {
     "command": "notebook:move-cell-down",
     "keys": [
@@ -86,9 +44,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
 },
-#+end_src
-*** Up
-#+begin_src js
 {
     "command": "notebook:move-cell-up",
     "keys": [
@@ -96,10 +51,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
 },
-#+end_src
-** Extend Selection
-*** Below
-#+begin_src js
 {
     "command": "notebook:extend-marked-cells-below",
     "keys": [
@@ -107,9 +58,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-Notebook:focus"
 },
-#+end_src
-*** Above
-#+begin_src js
 {
     "command": "notebook:extend-marked-cells-above",
     "keys": [
@@ -117,10 +65,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-Notebook:focus"
 },
-#+end_src
-* Insert New Cell
-** Below :noexport:
-#+begin_src js
 {
     "command": "notebook:insert-cell-below",
     "keys": [
@@ -128,9 +72,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-Notebook:focus"
 },
-#+end_src
-** Above :noexport:
-#+begin_src js
 {
     "command": "notebook:insert-cell-above",
     "keys": [
@@ -138,10 +79,6 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
     ],
     "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
 },
-#+end_src
-* Toggle Theme
-JupyterLab 3 only.
-#+begin_src js :tangle no
 {
     "command": "jupyterlab-theme-toggle:toggle",
     "keys": [
@@ -149,9 +86,5 @@ JupyterLab 3 only.
     ],
     "selector": "body"
 },
-#+end_src
-* End :noexport:
-#+begin_src js
     ]
 }
-#+end_src

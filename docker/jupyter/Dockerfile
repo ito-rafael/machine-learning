@@ -9,6 +9,8 @@
 #     - replace Neovim with standard Vim
 #     - copy dotfiles for Bash and Vim
 #     - Jupyter:
+#       - update to JupyterLab 4
+#       - uninstall jupyterlab-vimrc (breaks copy to clipboard)
 #       - disable Jupyter announcements notification
 #       - enable Jupyter extensions by default
 #       - configure vim bindings (Colemak-DH) for notebook in "Keyboard Shortcuts"
@@ -26,8 +28,7 @@ USER root
 RUN apt-get update && apt-get upgrade -y
 
 # install packages with package manager
-RUN apt install -y \
-  vim
+RUN apt install -y vim
 
 # switch back to jovyan user to avoid running container as root accidentally
 USER ${NB_UID}
@@ -63,23 +64,6 @@ RUN pip install \
     google-auth-oauthlib \
     PyDrive2
 
-# Jupyter Notebook Extensions
-
-# with pip:
-#   - ipywidgets:                Widgets
-#   - ipympl:                    Matplotlib
-#   - jupyterlab-vim:            Vim bindings
-#   - jupyterlab-vimrc:          Vim copy to clipboard
-#   - autopep8:                  PEP 8 Python support
-#   - jupyterlab-theme-toggler:  Top bar button to toggle theme
-RUN pip install \
-    ipywidgets \
-    ipympl \
-    jupyterlab-vim \
-
-    autopep8 \
-    jupyterlab-theme-toggler
-
 # adjust some settings
 COPY --chown=jovyan settings/shell-inputrc  /home/jovyan/.inputrc
 COPY --chown=jovyan settings/shell-bashrc   /home/jovyan/.bashrc
@@ -89,6 +73,38 @@ COPY --chown=jovyan settings/vim-vimrc      /home/jovyan/.vimrc
 #COPY --chown=jovyan settings/nvim-init.lua     /home/jovyan/.config/nvim/init.lua
 #COPY --chown=jovyan settings/nvim-plugins.lua  /home/jovyan/.config/nvim/lua/plugins.lua
 
+# Jupyter Notebook Extensions
+#
+# caveat:
+#   - jupyterlab-vimrc is needed for "copy to clipoard" to work. However, it requires JupyterLab 3. If you want this feature include "jupyterlab-vimrc" in the list of the packages installed by pip. You will also need to install the button to toggle the theme from labextension instead of pip.
+#
+# with pip:
+#   Both JupyterLab 3 and 4:
+#     - ipywidgets:                Widgets
+#     - ipympl:                    Matplotlib
+#     - jupyterlab-vim:            Vim bindings
+#     - autopep8:                  PEP 8 Python support
+#
+#   JupyterLab 3 only:
+#     - jupyterlab-vimrc:          Vim copy to clipboard (requires JupyterLab 3, unfortunately)
+#     - jupyterlab-theme-toggler:  Top bar button to toggle theme
+#
+RUN pip install \
+    ipywidgets \
+    ipympl \
+    jupyterlab-vim \
+    autopep8 \
+    jupyterlab-theme-toggler
+    #jupyterlab-vimrc  -->  JupyterLab 3 only
+
+# with labextension: (will be deprecated in a future major version of JupyterLab)
+#   JupyterLab 3 only:
+#     - jupyterlab-topbar-extension jupyterlab-theme-toggle
+#     - jupyterlab-theme-toggler:  Top bar button to toggle theme
+#
+# install top bar button to toggle theme
+#RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-theme-toggle
+
 # with npm:
 #   - apputils:          UI utils (disable announcements notification)
 RUN npm install @jupyterlab/apputils
@@ -97,7 +113,7 @@ RUN npm install @jupyterlab/apputils
 RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # enable copy to clipboard (JupyterLab 3 only)
-COPY --chown=jovyan extensions/jupyterlab-vimrc/vimrc.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/jupyterlab-vimrc/vimrc.jupyterlab-settings
+#COPY --chown=jovyan extensions/jupyterlab-vimrc/vimrc.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/jupyterlab-vimrc/vimrc.jupyterlab-settings
 
 # set theme to dark
 COPY --chown=jovyan extensions/\@jupyterlab/apputils-extension/themes.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/apputils-extension/themes.jupyterlab-settings
