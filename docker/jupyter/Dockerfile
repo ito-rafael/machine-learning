@@ -14,6 +14,7 @@
 #       - enable Jupyter extensions by default
 #       - configure vim bindings (Colemak-DH) inside cells in "Notebook Vim" [@axlair/jupyterlab_vim]
 #       - set Jupyter theme to dark
+#       - install button to toggle theme
 #       - enable line number in console & all cell types
 
 # get parent image:
@@ -65,18 +66,19 @@ RUN pip install \
 # Jupyter Notebook Extensions
 
 # with pip:
-#   - ipywidgets:        Widgets
-#   - ipympl:            Matplotlib
-#   - jupyterlab-vim:    Vim bindings
-#   - jupyterlab-vimrc:  Vim copy to clipboard
-#   - autopep8:          PEP 8 Python support
+#   - ipywidgets:                Widgets
+#   - ipympl:                    Matplotlib
+#   - jupyterlab-vim:            Vim bindings
+#   - jupyterlab-vimrc:          Vim copy to clipboard
+#   - autopep8:                  PEP 8 Python support
+#   - jupyterlab-theme-toggler:  Top bar button to toggle theme
 RUN pip install \
     ipywidgets \
     ipympl \
     jupyterlab-vim \
-    jupyterlab-vimrc \
-    autopep8
 
+    autopep8 \
+    jupyterlab-theme-toggler
 
 # adjust some settings
 COPY --chown=jovyan settings/shell-inputrc  /home/jovyan/.inputrc
