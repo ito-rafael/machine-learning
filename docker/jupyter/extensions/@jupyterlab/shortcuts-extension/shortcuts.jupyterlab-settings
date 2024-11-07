@@ -17,6 +17,14 @@
             "selector": ".jp-Notebook:focus"
         },
         {
+            "command": "vim:enter-insert-mode",
+            "keys": [
+                "Ctrl I"
+            ],
+            "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook.jp-mod-commandMode :focus:not(:read-write)",
+            "disabled": true
+        },
+        {
             "command": "notebook:change-cell-to-code",
             "keys": [
                 "C"
@@ -40,14 +48,14 @@
         {
             "command": "notebook:move-cell-down",
             "keys": [
-                "Ctrl E"
+                "Shift Ctrl E"
             ],
             "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
         },
         {
             "command": "notebook:move-cell-up",
             "keys": [
-                "Ctrl I"
+                "Shift Ctrl I"
             ],
             "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
         },

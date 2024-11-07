@@ -8,6 +8,8 @@
 * Table of contents :toc_2:
 - [[#kernel-interruption-disable-i-i][Kernel interruption disable (i, i)]]
 - [[#enter-insert-mode][Enter Insert Mode]]
+  - [[#enable][Enable]]
+  - [[#disable][Disable]]
 - [[#change-cell-to-code][Change Cell to Code]]
 - [[#navigation][Navigation]]
   - [[#focus][Focus]]
@@ -35,6 +37,7 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
 },
 #+end_src
 * Enter Insert Mode
+** Enable
 #+begin_src js
 {
     "command": "notebook:enter-edit-mode",
@@ -42,6 +45,17 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
         "S"
     ],
     "selector": ".jp-Notebook:focus"
+},
+#+end_src
+** Disable
+#+begin_src js
+{
+    "command": "vim:enter-insert-mode",
+    "keys": [
+        "Ctrl I"
+    ],
+    "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook.jp-mod-commandMode :focus:not(:read-write)",
+    "disabled": true
 },
 #+end_src
 * Change Cell to Code
@@ -82,7 +96,7 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
 {
     "command": "notebook:move-cell-down",
     "keys": [
-        "Ctrl E"
+        "Shift Ctrl E"
     ],
     "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
 },
@@ -92,7 +106,7 @@ For JupyterLab 3, use ="selector": "[data-jp-kernel-user]:focus"=.
 {
     "command": "notebook:move-cell-up",
     "keys": [
-        "Ctrl I"
+        "Shift Ctrl I"
     ],
     "selector": ".jp-NotebookPanel[data-jp-vim-mode='true'] .jp-Notebook:focus"
 },
