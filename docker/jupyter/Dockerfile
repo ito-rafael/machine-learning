@@ -8,6 +8,7 @@
 #   - v0.5:
 #     - replace Neovim with standard Vim
 #     - copy dotfiles for Bash and Vim
+#     - set Jupyter theme to dark
 #     - enable Jupyter extensions by default
 #     - disable Jupyter announcements notification
 #     - configure vim keybindings in @axlair/jupyterlab_vim: hjkl --> neio (Colemak-DH)
@@ -80,14 +81,9 @@ RUN cp shortcuts.jupyterlab-settings "$tmpfile"
 RUN jq '(.shortcuts[] | select(.command == "notebook:move-cursor-up") | select(.keys == ["K"])).keys |= ["L"]' "$tmpfile" | \
     jq '(.shortcuts[] | select(.command == "notebook:move-cursor-down") | select(.keys == ["J"])).keys |= ["K"]' >shortcuts.jupyterlab-settings
 RUN rm -f -- "$tmpfile"
-# with npm:
-#   - apputils:          UI utils (disable announcements notification)
-RUN npm install @jupyterlab/apputils
 
 # configure vimrc in JupyterLab (hjkl --> jkl;)
 COPY vimrc.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/jupyterlab-vimrc/vimrc.jupyterlab-settings
-# disable Jupyter announcements notification
-RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
 
 # adjust some settings
 COPY --chown=jovyan settings/shell-inputrc  /home/jovyan/.inputrc
@@ -97,6 +93,16 @@ COPY --chown=jovyan settings/vim-vimrc      /home/jovyan/.vimrc
 #COPY --chown=jovyan settings/nvim-vimrc.vim    /home/jovyan/.config/nvim/vimrc.vim
 #COPY --chown=jovyan settings/nvim-init.lua     /home/jovyan/.config/nvim/init.lua
 #COPY --chown=jovyan settings/nvim-plugins.lua  /home/jovyan/.config/nvim/lua/plugins.lua
+
+# with npm:
+#   - apputils:          UI utils (disable announcements notification)
+RUN npm install @jupyterlab/apputils
+
+# disable Jupyter announcements notification
+RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
+
+# set theme to dark
+COPY --chown=jovyan extensions/\@jupyterlab/apputils-extension/themes.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/apputils-extension/themes.jupyterlab-settings
 
 # enable extensions
 COPY --chown=jovyan extensions/\@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
