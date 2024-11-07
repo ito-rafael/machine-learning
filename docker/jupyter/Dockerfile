@@ -9,7 +9,6 @@
 #     - replace Neovim with standard Vim
 #     - copy dotfiles for Bash and Vim
 #     - Jupyter:
-#       - uninstall jupyterlab-vimrc
 #       - disable Jupyter announcements notification
 #       - enable Jupyter extensions by default
 #       - configure vim bindings (Colemak-DH) for notebook in "Keyboard Shortcuts"
@@ -96,6 +95,9 @@ RUN npm install @jupyterlab/apputils
 
 # disable Jupyter announcements notification
 RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
+
+# enable copy to clipboard (JupyterLab 3 only)
+COPY --chown=jovyan extensions/jupyterlab-vimrc/vimrc.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/jupyterlab-vimrc/vimrc.jupyterlab-settings
 
 # set theme to dark
 COPY --chown=jovyan extensions/\@jupyterlab/apputils-extension/themes.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/apputils-extension/themes.jupyterlab-settings
