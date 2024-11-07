@@ -8,11 +8,13 @@
 #   - v0.5:
 #     - replace Neovim with standard Vim
 #     - copy dotfiles for Bash and Vim
-#     - set Jupyter theme to dark
-#     - uninstall jupyterlab-vimrc
-#     - enable Jupyter extensions by default
-#     - disable Jupyter announcements notification
-#     - configure vim keybindings in @axlair/jupyterlab_vim: hjkl --> neio (Colemak-DH)
+#     - Jupyter:
+#       - uninstall jupyterlab-vimrc
+#       - disable Jupyter announcements notification
+#       - enable Jupyter extensions by default
+#       - configure vim bindings (Colemak-DH) inside cells in "Notebook Vim" [@axlair/jupyterlab_vim]
+#       - set Jupyter theme to dark
+#       - enable line number in all cell types
 
 # get parent image:
 # https://github.com/jupyter/docker-stacks
@@ -110,5 +112,8 @@ COPY --chown=jovyan extensions/\@jupyterlab/extensionmanager-extension/plugin.ju
 
 # configure Colemak-DH in JupyterLab with jupyterlab-vim (hjkl --> neio)
 COPY --chown=jovyan extensions/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings
+
+# enable line numbers in notebook
+COPY --chown=jovyan extensions/\@jupyterlab/notebook-extension/tracker.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/notebook-extension/tracker.jupyterlab-settings
 
 WORKDIR /home/jovyan
