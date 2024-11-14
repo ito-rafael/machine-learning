@@ -19,6 +19,8 @@
 #       - set Jupyter theme to dark
 #       - install button at top bar to toggle theme
 #       - enable line number in console & all cell types
+#   - v1.1:
+#     - bugfix missing jupyterlab-vim bindings
 #   ----------
 
 # get parent image:

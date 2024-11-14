@@ -54,6 +54,13 @@
             "context": "normal",
             "mapfn": "noremap",
             "enabled": true,
+            "command": "K",
+            "keys": "N"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
             "command": "l",
             "keys": "e"
         },
@@ -61,8 +68,22 @@
             "context": "normal",
             "mapfn": "noremap",
             "enabled": true,
+            "command": "L",
+            "keys": "E"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
             "command": "s",
             "keys": "i"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "S",
+            "keys": "I"
         },
         {
             "context": "visual",
@@ -98,6 +119,27 @@
             "enabled": true,
             "command": "s",
             "keys": "i"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "S",
+            "keys": "I"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "l",
+            "keys": "e"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "L",
+            "keys": "E"
         },
         {
             "context": "normal",
