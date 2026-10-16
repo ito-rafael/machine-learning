@@ -36,4 +36,5 @@ RUN pip install \
     nvidia-ml-py \
     pandas \
     scikit-learn \
-    thop
+    thop \
+    tabulate

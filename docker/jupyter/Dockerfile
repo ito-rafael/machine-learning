@@ -19,9 +19,9 @@
 #       - set Jupyter theme to dark
 #       - install button at top bar to toggle theme
 #       - enable line number in console & all cell types
-#   - v1.1:
-#     - bugfix missing jupyterlab-vim bindings
+#   - v1.1: bugfix missing jupyterlab-vim bindings
 #   - v1.2:
+#     - install torchmetrics and tabulate via pip
 #     - create jupyterlab-relative-line-numbers that implements:
 #       - relative line number;
 #       - current line number white in dark gray block;
@@ -48,7 +48,8 @@ USER ${NB_UID}
 RUN pip install \
     torch \
     torchvision \
-    torchaudio
+    torchaudio \
+    torchmetrics
 
 # TensorFlow
 RUN pip install \
@@ -65,7 +66,8 @@ RUN pip install \
     nvidia-ml-py \
     pandas \
     scikit-learn \
-    thop
+    thop \
+    tabulate
 
 # Google Drive
 RUN pip install \

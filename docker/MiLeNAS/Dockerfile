@@ -29,7 +29,6 @@ RUN echo 'conda activate '$CONDA_ENV >> ~/.bashrc
 
 # additional packages
 RUN pip install -r requirements.txt
-RUN pip install nvidia-ml-py3
 
 # copy CIFAR-10 data
 COPY data/cifar-10-batches-py data/cifar-10-batches-py
