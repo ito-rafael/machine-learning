@@ -11,7 +11,7 @@ RUN apt update && apt upgrade -y
 
 # general packages
 RUN apt install -y \
-    vim \
+    neovim \
     python3 \
     python3-pip
 
@@ -33,6 +33,7 @@ RUN pip install \
 
 # other packages
 RUN pip install \
+    nvidia-ml-py \
     pandas \
     scikit-learn \
     thop
