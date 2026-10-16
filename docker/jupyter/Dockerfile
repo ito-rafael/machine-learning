@@ -56,7 +56,7 @@ RUN pip install \
 
 # other packages
 RUN pip install \
-    nvidia-ml-py3 \
+    nvidia-ml-py \
     pandas \
     scikit-learn \
     thop
