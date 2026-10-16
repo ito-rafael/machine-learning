@@ -16,6 +16,7 @@
     // The configuration for all code cells; it will override the CodeMirror default configuration.
     "codeCellConfig": {
         "lineNumbers": true,
+        "relativeLineNumbers": true,
         "lineWrap": false
     },
 

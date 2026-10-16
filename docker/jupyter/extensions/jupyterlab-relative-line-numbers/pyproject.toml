@@ -1,0 +1,30 @@
+[build-system]
+requires = ["hatchling>=1.5.0", "jupyterlab>=4.0.0,<5", "hatch-nodejs-version>=0.3.2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jupyterlab_relative_line_numbers"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = []
+dynamic = ["version"]
+
+[tool.hatch.version]
+source = "nodejs"
+
+[tool.hatch.build.targets.sdist]
+exclude = [".github", "node_modules"]
+
+[tool.hatch.build.targets.wheel.shared-data]
+"jupyterlab_relative_line_numbers/labextension" = "share/jupyter/labextensions/jupyterlab-relative-line-numbers"
+"install.json" = "share/jupyter/labextensions/jupyterlab-relative-line-numbers/install.json"
+
+[tool.hatch.build.hooks.jupyter-builder]
+dependencies = ["hatch-jupyter-builder>=0.5"]
+build-function = "hatch_jupyter_builder.npm_builder"
+ensured-targets = ["jupyterlab_relative_line_numbers/labextension/package.json"]
+skip-if-exists = ["jupyterlab_relative_line_numbers/labextension/package.json"]
+
+[tool.hatch.build.hooks.jupyter-builder.build-kwargs]
+build_cmd = "build:prod"
+npm = ["npm"]

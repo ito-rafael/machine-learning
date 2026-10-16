@@ -1,0 +1,122 @@
+#+title: jupyterlab-relative-line-numbers
+#+author: Rafael Ito
+#+property: header-args :eval no
+#+description: Vim-style relative line numbers for JupyterLab 4 editors with a highlighted current line.
+#+startup: showeverything
+#+auto_tangle: t
+
+* Table of Contents :toc:
+- [[#jupyterlab-relative-line-numbers][jupyterlab-relative-line-numbers]]
+  - [[#features][Features]]
+  - [[#requirements][Requirements]]
+  - [[#installation][Installation]]
+  - [[#settings][Settings]]
+  - [[#how-it-works][How it works]]
+  - [[#customizing-the-look][Customizing the look]]
+  - [[#development][Development]]
+  - [[#uninstall][Uninstall]]
+  - [[#license][License]]
+
+* jupyterlab-relative-line-numbers
+Vim-style *relative line numbers* for JupyterLab 4 editors (code cells, console, file editor), with a clearly highlighted current line.
+
+#+begin_example
+2
+1
+10   <- cursor is here (shows its absolute number)
+1
+2
+#+end_example
+
+Every line shows its distance from the cursor line, except the cursor line itself, which shows its real line number. This makes motions like =5j=, =12k= or =d7j= easy to count, especially when using Vim keybindings via [[https://github.com/jupyterlab-contrib/jupyterlab-vim][jupyterlab-vim]].
+** Features
+- Relative numbers that update whenever the cursor moves or the text changes.
+- The current line number is white on a dark gray block; all other numbers are gray.
+- The current line gets a slightly different background (only in the focused editor, so a notebook with many cells doesn't show many highlighted lines).
+- Colors follow the active JupyterLab theme (light or dark) through =--jp-*= CSS variables.
+- Works together with *View → Show Line Numbers* (=Shift-L= in the setup this was built for): turning line numbers off hides the relative column too.
+- Enabled by default; can be toggled per editor type in the settings.
+** Requirements
+- JupyterLab >= 4.0 (CodeMirror 6)
+- A browser with support for the CSS =:has()= selector (current Chrome, Edge, Safari and Firefox). Without it, the relative column stays visible after turning line numbers off.
+** Installation
+From the extension folder:
+
+#+begin_src bash
+npm install
+npm run build:prod
+pip install hatchling hatch-jupyter-builder hatch-nodejs-version
+pip install -e .
+jupyter labextension develop . --overwrite
+#+end_src
+
+Restart JupyterLab (or reload the page) and check that the extension is listed:
+
+#+begin_src bash
+jupyter labextension list
+#+end_src
+*** Docker
+#+begin_src dockerfile
+COPY --chown=jovyan extensions/jupyterlab-relative-line-numbers /tmp/jupyterlab-relative-line-numbers
+RUN cd /tmp/jupyterlab-relative-line-numbers && \
+    npm install && \
+    npm run build:prod && \
+    pip install hatchling hatch-jupyter-builder hatch-nodejs-version && \
+    pip install -e . && \
+    jupyter labextension develop . --overwrite
+#+end_src
+
+Node.js 20 or newer is recommended for the build.
+** Settings
+The extension registers a boolean editor option named =relativeLineNumbers= (default: =true=). Like the other CodeMirror options, it can be set per cell type in the notebook settings (=`@jupyterlab/notebook-extension:tracker`=):
+
+#+begin_src json
+{
+    "codeCellConfig": {
+        "lineNumbers": true,
+        "relativeLineNumbers": true
+    },
+    "markdownCellConfig": {
+        "relativeLineNumbers": false
+    }
+}
+#+end_src
+
+The same key works in the console (=promptCellConfig=) and the file editor (=editorConfig=).
+
+Keep =lineNumbers= and =relativeLineNumbers= in agreement: the extension hides JupyterLab's stock gutter and draws its own, so =relativeLineNumbers: true= is only meaningful when line numbers are shown.
+** How it works
+CodeMirror's built-in line number gutter only redraws when the document or viewport changes, not when the cursor moves, so =formatNumber= alone can't produce relative numbers. This extension:
+
+1. Adds a custom gutter (=cm-relativeLineNumbers=) whose markers are recomputed on every selection change.
+2. Hides the stock =cm-lineNumbers= gutter with CSS (CodeMirror forces =display: flex !important=, so the rule uses =!important= as well).
+3. Hides its own gutter when the stock one is absent, so JupyterLab's line number toggle keeps working.
+4. Adds =highlightActiveLine()= and theme rules for the colors.
+
+The code is in [[file:src/index.ts][src/index.ts]].
+** Customizing the look
+The colors are defined in the =EditorView.theme= block in [[file:src/index.ts][src/index.ts]]:
+
+|-------------------------+------------------------------------------------------|
+| Element                 | Default                                              |
+|-------------------------+------------------------------------------------------|
+| Other line numbers      | =var(--jp-ui-font-color2)= (gray)                      |
+| Current line number     | =var(--jp-ui-font-color0)= on =--jp-layout-color3=, bold |
+| Current line background | =rgba(128, 128, 128, 0.18)=                            |
+|-------------------------+------------------------------------------------------|
+
+Replace the values with literal colors (for example =#ffffff=, =#888888=, =#444444=) if you don't want them to follow the theme. To left-align the current line number like Vim does, add ='.cm-activeLineGutter': { textAlign: 'left' }=.
+** Development
+#+begin_src bash
+npm install
+npm run build          # development build (with source maps)
+jupyter labextension develop . --overwrite
+#+end_src
+
+Rebuild with =npm run build= and reload the browser page after each change. If you change =package.json= dependencies, run =npm install= again.
+** Uninstall
+#+begin_src bash
+pip uninstall jupyterlab_relative_line_numbers
+#+end_src
+** License
+BSD-3-Clause

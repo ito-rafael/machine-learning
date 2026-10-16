@@ -1,0 +1,27 @@
+{
+  "name": "jupyterlab-relative-line-numbers",
+  "version": "0.1.0",
+  "description": "Vim-style relative line numbers for JupyterLab 4 editors",
+  "license": "BSD-3-Clause",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "files": ["lib/**/*.{d.ts,js,js.map}"],
+  "scripts": {
+    "build:prod": "rimraf lib && tsc && jupyter labextension build .",
+    "build": "rimraf lib && tsc --sourceMap && jupyter labextension build --development True ."
+  },
+  "dependencies": {
+    "@codemirror/view": "^6.0.0",
+    "@jupyterlab/application": "^4.0.0",
+    "@jupyterlab/codemirror": "^4.0.0"
+  },
+  "devDependencies": {
+    "@jupyterlab/builder": "^4.0.0",
+    "rimraf": "^5.0.0",
+    "typescript": "~5.1.6"
+  },
+  "jupyterlab": {
+    "extension": true,
+    "outputDir": "jupyterlab_relative_line_numbers/labextension"
+  }
+}

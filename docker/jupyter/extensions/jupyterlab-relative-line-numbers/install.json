@@ -1,0 +1,5 @@
+{
+  "packageManager": "python",
+  "packageName": "jupyterlab_relative_line_numbers",
+  "uninstallInstructions": "pip uninstall jupyterlab_relative_line_numbers"
+}

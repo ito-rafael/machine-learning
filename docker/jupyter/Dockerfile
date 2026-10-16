@@ -21,6 +21,12 @@
 #       - enable line number in console & all cell types
 #   - v1.1:
 #     - bugfix missing jupyterlab-vim bindings
+#   - v1.2:
+#     - create jupyterlab-relative-line-numbers that implements:
+#       - relative line number;
+#       - current line number white in dark gray block;
+#       - other line numbers in gray;
+#       - current line in gray;
 #   ----------
 
 # get parent image:
@@ -117,6 +123,17 @@ RUN npm install @jupyterlab/apputils
 
 # disable Jupyter announcements notification
 RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
+
+# upgrade Node.js to meet the newer extension requirement
+RUN mamba install -y -c conda-forge "nodejs>=20.19.0"
+
+# relative line numbers extension for CodeMirror
+COPY --chown=jovyan extensions/jupyterlab-relative-line-numbers /tmp/relnum
+RUN cd /tmp/relnum && \
+    npm install && \
+    npm run build:prod && \
+    pip install . && \
+    cd / && rm -rf /tmp/relnum ~/.npm
 
 #==================================================
 # copy all settings at once
