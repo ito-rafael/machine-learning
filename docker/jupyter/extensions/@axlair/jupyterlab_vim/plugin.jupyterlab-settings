@@ -143,10 +143,45 @@
         },
         {
             "context": "normal",
-            "mapfn": "map",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "y",
+            "keys": "\"+y"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "y",
+            "keys": "\"+y"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
             "enabled": true,
             "command": "Y",
-            "keys": "y$"
+            "keys": "\"+y$"
         },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "p",
+            "keys": "\"+p"
+        },
+        {
+            "context": "normal",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "P",
+            "keys": "\"+P"
+        },
+        {
+            "context": "visual",
+            "mapfn": "noremap",
+            "enabled": true,
+            "command": "p",
+            "keys": "\"+p"
+        }
     ]
 }
