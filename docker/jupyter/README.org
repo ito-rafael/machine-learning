@@ -1,0 +1,217 @@
+#+title: Dockerfile for Jupyter development environment
+#+author: Rafael Ito
+#+property: header-args:
+#+description: build jupyter-env container
+#+startup: showeverything
+#+auto_tangle: t
+
+* Table of Contents :toc:
+- [[#dockerfile][Dockerfile]]
+  - [[#information][Information]]
+  - [[#parent-image][Parent Image]]
+  - [[#packages-installation][Packages Installation]]
+  - [[#jupyter-notebook-extensions][Jupyter Notebook Extensions]]
+
+* Dockerfile
+:PROPERTIES:
+:header-args:dockerfile+: :tangle Dockerfile
+:END:
+** Information
+description: generic dev image to use with Jupyter Docker Stacks
+author: Rafael Ito
+version:
+  - v0.1: first release
+  - v0.2: add jupyter-autopep8
+  - v0.3: add PyDrive2 & Google Drive API
+  - v0.4: configure vim keybindings: "hjkl" --> "jkl;" (qwerty shifted right 1u)
+  ----------
+  - v1.0:
+    - replace Neovim with standard Vim
+    - copy dotfiles for Bash and Vim
+    - Jupyter:
+      - update to JupyterLab 4
+      - uninstall jupyterlab-vimrc (breaks copy to clipboard)
+      - disable Jupyter announcements notification
+      - enable Jupyter extensions by default
+      - configure vim bindings (Colemak-DH) for notebook in "Keyboard Shortcuts"
+      - configure vim bindings (Colemak-DH) inside cells in "Notebook Vim" [@axlair/jupyterlab_vim]
+      - set Jupyter theme to dark
+      - install button at top bar to toggle theme
+      - enable line number in console & all cell types
+  ----------
+  - v1.1: bugfix missing jupyterlab-vim bindings
+  - v1.2: install torchmetrics and tabulate via pip
+  - v1.3:
+    - create jupyterlab-relative-line-numbers that implements:
+      - relative line number;
+      - current line number white in dark gray block;
+      - other line numbers in gray;
+      - current line in gray;
+  ----------
+** Parent Image
+#+begin_src dockerfile
+# https://github.com/jupyter/docker-stacks
+FROM jupyter/minimal-notebook
+#+end_src
+** Packages Installation
+*** Update System
+#+begin_src dockerfile
+USER root
+RUN apt-get update && apt-get upgrade -y
+#+end_src
+*** Package Manager
+#+begin_src dockerfile
+RUN apt install -y vim
+# switch back to jovyan user to avoid running container as root accidentally
+USER ${NB_UID}
+#+end_src
+*** Python Packages with pip
+**** PyTorch
+#+begin_src dockerfile
+RUN pip install \
+    torch \
+    torchvision \
+    torchaudio \
+    torchmetrics
+#+end_src
+**** TensorFlow
+#+begin_src dockerfile
+RUN pip install \
+    tensorflow
+#+end_src
+**** Visualization
+#+begin_src dockerfile
+RUN pip install \
+    matplotlib \
+    seaborn \
+    tqdm
+#+end_src
+**** Miscellaneous
+#+begin_src dockerfile
+RUN pip install \
+    nvidia-ml-py \
+    pandas \
+    scikit-learn \
+    thop \
+    tabulate
+#+end_src
+**** Google Drive
+#+begin_src dockerfile
+# Google Drive
+RUN pip install \
+    google-api-python-client \
+    google-auth-httplib2 \
+    google-auth-oauthlib \
+    PyDrive2
+#+end_src
+*** Settings
+#+begin_src dockerfile
+COPY --chown=jovyan settings/shell-inputrc  /home/jovyan/.inputrc
+COPY --chown=jovyan settings/shell-bashrc   /home/jovyan/.bashrc
+#+end_src
+**** Vim
+#+begin_src dockerfile :padline no
+COPY --chown=jovyan settings/vim-vimrc      /home/jovyan/.vimrc
+#+end_src
+**** Neovim
+#+begin_src dockerfile :padline no :tangle no
+# Neovim
+COPY --chown=jovyan settings/nvim-vimrc.vim    /home/jovyan/.config/nvim/vimrc.vim
+COPY --chown=jovyan settings/nvim-init.lua     /home/jovyan/.config/nvim/init.lua
+COPY --chown=jovyan settings/nvim-plugins.lua  /home/jovyan/.config/nvim/lua/plugins.lua
+#+end_src
+** Jupyter Notebook Extensions
+*** Information
+caveat:
+  - jupyterlab-vimrc is needed for "copy to clipoard" to work. However, it requires JupyterLab 3. If you want this feature include "jupyterlab-vimrc" in the list of the packages installed by pip. You will also need to install the button to toggle the theme from labextension instead of pip.
+
+Both JupyterLab 3 and 4:
+  - npm/apputils:        UI utils (disable announcements notification)
+  - pip/ipywidgets:      Widgets
+  - pip/ipympl:          Matplotlib
+  - pip/jupyterlab-vim:  Vim bindings
+  - pip/autopep8:        PEP 8 Python support
+
+JupyterLab 3 only:
+  - pip/jupyterlab-vimrc:          Vim copy to clipboard (requires JupyterLab 3, unfortunately)
+  - pip/jupyterlab-theme-toggler:  Top bar button to toggle theme
+
+JupyterLab 4 only:
+    - labextension/jupyterlab-topbar-extension:  Top bar extension
+    - labextension/jupyterlab-theme-toggle:      Top bar button to toggle theme
+
+note: "labextension" will be deprecated in a future major version of JupyterLab
+*** Install Python Packages with pip
+#+begin_src dockerfile
+# install packages with pip
+RUN pip install \
+    ipywidgets \
+    ipympl \
+    jupyterlab-vim \
+    autopep8 \
+    jupyterlab-theme-toggler
+    #jupyterlab-vimrc  -->  JupyterLab 3 only
+#+end_src
+*** Toggle Theme button at top bar (JupyterLab 3)
+#+begin_src dockerfile :tangle no
+RUN jupyter labextension install jupyterlab-topbar-extension jupyterlab-theme-toggle
+#+end_src
+*** Install Packages with npm
+#+begin_src dockerfile
+RUN npm install @jupyterlab/apputils
+#+end_src
+*** Disable Jupyter announcements notification
+#+begin_src dockerfile
+RUN jupyter labextension disable "@jupyterlab/apputils-extension:announcements"
+#+end_src
+*** Relative Line Numbers
+**** Upgrade Node.js
+#+begin_src dockerfile
+RUN mamba install -y -c conda-forge "nodejs>=20.19.0"
+#+end_src
+**** Extension build
+#+begin_src dockerfile
+COPY --chown=jovyan extensions/jupyterlab-relative-line-numbers /tmp/relnum
+RUN cd /tmp/relnum && \
+    npm install && \
+    npm run build:prod && \
+    pip install . && \
+    cd / && rm -rf /tmp/relnum ~/.npm
+#+end_src
+*** Copy Extension Settings
+**** Copy all settings at once
+#+begin_src dockerfile
+COPY --chown=jovyan extensions /home/jovyan/.jupyter/lab/user-settings/
+#+end_src
+**** Enable copy to clipboard (JupyterLab 3 only)
+#+begin_src dockerfile :tangle no
+COPY --chown=jovyan extensions/jupyterlab-vimrc/vimrc.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/jupyterlab-vimrc/vimrc.jupyterlab-settings
+#+end_src
+**** Set theme to dark
+#+begin_src dockerfile :tangle no
+COPY --chown=jovyan extensions/\@jupyterlab/apputils-extension/themes.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/apputils-extension/themes.jupyterlab-settings
+#+end_src
+**** Enable extensions
+#+begin_src dockerfile :tangle no
+COPY --chown=jovyan extensions/\@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/extensionmanager-extension/plugin.jupyterlab-settings
+#+end_src
+**** Configure Colemak-DH in JupyterLab with jupyterlab-vim (hjkl --> neio)
+#+begin_src dockerfile :tangle no
+COPY --chown=jovyan extensions/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@axlair/jupyterlab_vim/plugin.jupyterlab-settings
+#+end_src
+**** Set keyboard shortcuts for Colemak-DH
+#+begin_src dockerfile :tangle no
+COPY --chown=jovyan extensions/\@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/shortcuts-extension/shortcuts.jupyterlab-settings
+#+end_src
+**** Enable line numbers in console
+#+begin_src dockerfile :tangle no
+COPY --chown=jovyan extensions/\@jupyterlab/console-extension/tracker.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/console-extension/tracker.jupyterlab-settings
+#+end_src
+**** Enable line numbers in notebook
+#+begin_src dockerfile :tangle no
+COPY --chown=jovyan extensions/\@jupyterlab/notebook-extension/tracker.jupyterlab-settings /home/jovyan/.jupyter/lab/user-settings/\@jupyterlab/notebook-extension/tracker.jupyterlab-settings
+#+end_src
+*** EoS
+#+begin_src dockerfile
+WORKDIR /home/jovyan
+#+end_src
