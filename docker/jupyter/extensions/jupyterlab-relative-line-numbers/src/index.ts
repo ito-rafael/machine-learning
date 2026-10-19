@@ -12,6 +12,11 @@ import {
   GutterMarker,
   highlightActiveLine
 } from '@codemirror/view';
+import { Vim } from '@replit/codemirror-vim';
+
+/* ------------------------------------------------------------------ *
+ * 1. Relative line numbers
+ * ------------------------------------------------------------------ */
 
 class NumberMarker extends GutterMarker {
   constructor(
@@ -61,7 +66,7 @@ const relativeTheme = EditorView.theme({
 
   // 3. other lines: gray numbers
   '.cm-relativeLineNumbers .cm-gutterElement': {
-    color: 'var(--jp-ui-font-color2, #222)'
+    color: 'var(--jp-ui-font-color2, #888)'
   },
   // 4. current line number: white on dark gray (only in the focused editor)
   '&.cm-focused .cm-relativeLineNumbers .cm-gutterElement.cm-currentRelLine': {
@@ -76,7 +81,7 @@ const relativeTheme = EditorView.theme({
   }
 });
 
-const plugin: JupyterFrontEndPlugin<void> = {
+const relativeLineNumbersPlugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab-relative-line-numbers:plugin',
   autoStart: true,
   requires: [IEditorExtensionRegistry],
@@ -100,4 +105,70 @@ const plugin: JupyterFrontEndPlugin<void> = {
   }
 };
 
-export default plugin;
+/* ------------------------------------------------------------------ *
+ * 2. Vim clipboard (the equivalent of `set clipboard=unnamedplus`)
+ *
+ * The Vim layer used by jupyterlab-vim has no `clipboard` option, and
+ * remapping `y` to `"+y` loses counts typed before the operator
+ * (`5dd` would delete one line). So instead of remapping keys, we wrap
+ * the register controller: whatever lands in the unnamed register
+ * (yank, delete, change) is also written to the system clipboard.
+ * ------------------------------------------------------------------ */
+
+function installVimClipboard(): void {
+  const rc: any = (Vim as any).getRegisterController();
+  if (rc.__clipboardPatched) {
+    return;
+  }
+  const original = rc.pushText.bind(rc);
+  rc.pushText = (
+    name: string | null | undefined,
+    operator: string,
+    text: string,
+    linewise?: boolean,
+    blockwise?: boolean
+  ): void => {
+    original(name, operator, text, linewise, blockwise);
+    // "_ (black hole) is ignored; named registers ("a, "b...) stay private;
+    // "+ already writes to the clipboard on its own.
+    if (name === '_') {
+      return;
+    }
+    if (!name || !rc.isValidRegister(name)) {
+      navigator.clipboard
+        ?.writeText(rc.unnamedRegister.toString())
+        .catch(() => undefined);
+    }
+  };
+  rc.__clipboardPatched = true;
+}
+
+/** Copy the system clipboard into Vim's unnamed register, so `p` pastes it. */
+async function syncFromClipboard(): Promise<void> {
+  try {
+    const text = await navigator.clipboard.readText();
+    const rc: any = (Vim as any).getRegisterController();
+    if (text && text !== rc.unnamedRegister.toString()) {
+      // text ending in a newline is treated as linewise, like real Vim
+      rc.unnamedRegister.setText(text, text.endsWith('\n'));
+    }
+  } catch {
+    // no permission, insecure context, or no user gesture (Firefox): ignore
+  }
+}
+
+const vimClipboardPlugin: JupyterFrontEndPlugin<void> = {
+  id: 'jupyterlab-relative-line-numbers:vim-clipboard',
+  autoStart: true,
+  activate: () => {
+    installVimClipboard();
+    window.addEventListener('focus', () => void syncFromClipboard());
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        void syncFromClipboard();
+      }
+    });
+  }
+};
+
+export default [relativeLineNumbersPlugin, vimClipboardPlugin];

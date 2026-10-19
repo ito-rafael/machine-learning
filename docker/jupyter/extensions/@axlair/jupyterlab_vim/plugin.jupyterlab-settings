@@ -1,187 +1,187 @@
 {
-    "enabled": true,
-    "extraKeybindings": [
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "n",
-            "keys": "h"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "e",
-            "keys": "j"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "i",
-            "keys": "k"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "o",
-            "keys": "l"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "h",
-            "keys": "o"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "H",
-            "keys": "O"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "k",
-            "keys": "n"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "K",
-            "keys": "N"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "l",
-            "keys": "e"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "L",
-            "keys": "E"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "s",
-            "keys": "i"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "S",
-            "keys": "I"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "n",
-            "keys": "h"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "e",
-            "keys": "j"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "i",
-            "keys": "k"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "o",
-            "keys": "l"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "s",
-            "keys": "i"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "S",
-            "keys": "I"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "l",
-            "keys": "e"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "L",
-            "keys": "E"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "y",
-            "keys": "\"+y"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "y",
-            "keys": "\"+y"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "Y",
-            "keys": "\"+y$"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "p",
-            "keys": "\"+p"
-        },
-        {
-            "context": "normal",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "P",
-            "keys": "\"+P"
-        },
-        {
-            "context": "visual",
-            "mapfn": "noremap",
-            "enabled": true,
-            "command": "p",
-            "keys": "\"+p"
-        }
-    ]
+  "enabled": true,
+  "extraKeybindings": [
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "n",
+      "keys": "h"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "e",
+      "keys": "j"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "i",
+      "keys": "k"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "o",
+      "keys": "l"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "h",
+      "keys": "o"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "H",
+      "keys": "O"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "k",
+      "keys": "n"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "K",
+      "keys": "N"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "l",
+      "keys": "e"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "L",
+      "keys": "E"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "s",
+      "keys": "i"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "S",
+      "keys": "I"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "y",
+      "keys": "y"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "Y",
+      "keys": "y$"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "p",
+      "keys": "p"
+    },
+    {
+      "context": "normal",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "P",
+      "keys": "P"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "n",
+      "keys": "h"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "e",
+      "keys": "j"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "i",
+      "keys": "k"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "o",
+      "keys": "l"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "s",
+      "keys": "i"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "S",
+      "keys": "I"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "l",
+      "keys": "e"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "L",
+      "keys": "E"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "y",
+      "keys": "y"
+    },
+    {
+      "context": "visual",
+      "mapfn": "noremap",
+      "enabled": true,
+      "command": "p",
+      "keys": "p"
+    }
+  ]
 }
